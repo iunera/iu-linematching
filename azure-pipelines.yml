@@ -1,0 +1,22 @@
+variables:
+  docker_image_tag: $(Build.BuildId)
+  project_name: iu-linematching
+  docker_image_name: iunera/$(project_name)
+  System.Debug: false
+  target_env: job
+
+trigger:
+  branches:
+    exclude:
+      - refs/heads/master
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      name: iunera/azure-devops-templates
+
+stages:
+  - template: docker_and_helm/azure-pipelines.yml@templates
+    parameters:
+      file_type_to_copy: flinkapplication

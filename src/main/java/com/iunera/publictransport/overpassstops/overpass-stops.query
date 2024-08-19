@@ -1,0 +1,19 @@
+/*
+This is an example Overpass query.
+Try it out by pressing the Run button above!
+You can find more examples with the Load tool.
+https://overpass-api.de/api/interpreter?data=[out:json][timeout:25];(node[%22highway%22=%22bus_stop%22](LATMIN,LONMIN,LATMAX,LONMAX);node[%22public_tranport%22=%22platform%22][%22bus%22=%22yes%22](51.928177836492,8.624267578125,52.189930488665,9.2037963867188););out;%3E;out%20skel%20qt;
+*/
+[out:json][timeout:25];
+// gather results
+(
+  // query part for: 
+ //relation["type"="route"]["route"="bus"]({{bbox}});
+node["highway"="bus_stop"]({{bbox}});
+  node["public_transport"="platform"]["bus"="yes"]({{bbox}});
+
+);
+// print results
+out body;
+>;
+out skel qt;

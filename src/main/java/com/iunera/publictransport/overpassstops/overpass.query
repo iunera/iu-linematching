@@ -1,0 +1,20 @@
+/*
+enter in: https://overpass-turbo.eu/
+This query looks for nodes, ways and relations 
+with the given key.
+Choose your region and hit the Run button above!
+*/
+[out:json][timeout:25];
+// gather results
+(
+  // query part for: 
+ //relation["type"="route"]["route"="bus"]({{bbox}});
+
+  node["network"="VRN"]["type"="route"]["route"="bus"]({{bbox}});
+  way["network"="VRN"]["type"="route"]["route"="bus"]({{bbox}});
+  relation["network"="VRN"]["type"="route"]["route"="bus"]({{bbox}});
+);
+// print results
+out body;
+>;
+out skel qt;

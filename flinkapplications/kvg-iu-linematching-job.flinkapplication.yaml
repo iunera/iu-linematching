@@ -1,0 +1,59 @@
+# https://github.com/apache/flink-kubernetes-operator/blob/main/examples/pod-template.yaml
+apiVersion: flink.apache.org/v1beta1
+kind: FlinkDeployment
+metadata:
+  name: kvg-iu-linematching
+  namespace: fahrbar-jobs
+spec:
+  image: iunera/iu-linematching:docker_image_tag
+  flinkVersion: v1_17
+  flinkConfiguration:
+    taskmanager.numberOfTaskSlots: "2"
+  serviceAccount: flink
+  podTemplate:
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: pod-template
+    spec:
+      containers:
+        # Do not change the main container name
+        - name: flink-main-container
+          env:
+            - name: GTFS_INPUT_API
+              value: ${GTFS_INPUT_API}
+            - name: KAFKA_BROKER
+              value: iunerakafkacluster-kafka-brokers.kafka.svc.cluster.local:9092
+            - name: INPUT_TOPIC
+              value: iu-fahrbar-prod-ingest-mgelectronic-kvg-flatfilecountdata-v1
+            - name: CONSUMER_GROUP_ID
+              value: iu-linematching-test-eKoh0uphie2y
+            - name: OUTPUT_TOPIC
+              value: iu-fahrbar-prod-linematched-general-v1
+
+  jobManager:
+    resource:
+      memory: "2048m"
+      cpu: 1
+  taskManager:
+    resource:
+      memory: "2048m"
+      cpu: 1
+  # https://nightlies.apache.org/flink/flink-kubernetes-operator-docs-main/docs/custom-resource/reference/#jobspec
+  job:
+    jarURI: local:///opt/flink/flink-web-upload/iu-linematching-2.0.0.jar
+    entryClass: com.iunera.publictransport.StopAndLineDetectionJob
+    parallelism: 2
+    state: running
+    upgradeMode: stateless
+    args:
+      - --add-opens java.base/java.lang=ALL-UNNAMED
+      - --add-opens java.base/java.util=ALL-UNNAMED
+      - --add-opens java.base/java.util.concurrent.atomic=ALL-UNNAMED
+
+    env:
+      - name: GTFS_INPUT_API
+        valueFrom:
+          secretKeyRef:
+            name: flatfilestreamer-s3-secret
+            key: GTFS_INPUT_API
