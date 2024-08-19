@@ -23,15 +23,18 @@ Theoretically this processor can also be used to match generally all GPS data to
 Another use case is to use the GPS data of a smartphone to match in which line a passenger is currently riding.
 
 # Start Parameters
+```
 inputTopic
 outputTopic
+```
 
-start class StopAndLineDetectionJob
+start class `StopAndLineDetectionJob`
 
 # JVM
 java 17 works when some parameters are set. 
 JVM params:
 
+```
 --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.util.concurrent.atomic=ALL-UNNAMED
 --add-opens java.base/java.lang=ALL-UNNAMED
 --add-opens java.base/java.util=ALL-UNNAMED
@@ -40,8 +43,8 @@ JVM params:
 -Dstdout.encoding=UTF-8
 -Dstderr.encoding=UTF-8
 -XX:+ShowCodeDetailsInExceptionMessages com.iunera.publictransport.StopAndLineDetectionJob
+```
 
 
 # License
 [Open Compensation Token License, Version 0.20](https://github.com/open-compensation-token-license/license/blob/main/LICENSE.md)
-
