@@ -20,7 +20,7 @@
 		<dependency>
 			<groupId>com.iunera.fahrbar</groupId>
 			<artifactId>iu-flink-extensions</artifactId>
-			<version>2.0.0</version>
+			<version>2.0.1</version>
 		</dependency>
 
 		<dependency>
@@ -86,35 +86,12 @@
 			<artifactId>kryo</artifactId>
 			<version>4.0.3</version>
 		</dependency>
-		<!-- 	
-		<dependency>
-			<groupId>com.twitter</groupId>
-			<artifactId>chill-protobuf</artifactId>
-			<version>0.10.0</version>
-		
-			<exclusions>
-				<exclusion>
-					<groupId>com.esotericsoftware.kryo</groupId>
-					<artifactId>kryo</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		We need protobuf for chill-protobuf 
-		<dependency>
-			<groupId>com.google.protobuf</groupId>
-			<artifactId>protobuf-java</artifactId>
-			<version>3.24.3</version>
-		</dependency>-->
-
-
 		<dependency>
 			<groupId>org.locationtech.jts</groupId>
 			<artifactId>jts-core</artifactId>
 			<version>${jts.version}</version>
 		</dependency>
 
-
-		<!-- To determine holidays -->
 		<dependency>
 			<groupId>de.jollyday</groupId>
 			<artifactId>jollyday</artifactId>
